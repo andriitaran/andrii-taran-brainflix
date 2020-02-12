@@ -1,0 +1,184 @@
+// NEW COMMENTS
+
+.comments {
+  @include section;
+  margin-bottom: 0;
+
+  &-container {
+    width: 288px;
+    display: flex;
+    flex-direction: column;
+
+    &__commentcount {
+      @include subheader(14px, 22px);
+      margin-bottom: 32px;
+    }
+
+    &__join {
+      @include subheader(14px, 22px);
+      color: $silver;
+      align-self: center;
+    }
+
+    &__newcomment {
+      display: flex;
+      width: 288px;
+      border-bottom: 1px solid $silver;
+      justify-content: space-between;
+
+      &--avatar {
+        flex-shrink: 0;
+        height: 48px;
+        width: 48px;
+        background-image: url(../assets/Images/Mohan-muruge.jpg);
+        background-size: cover;
+        border-radius: 50%;
+      }
+
+      &--box {
+        display: flex;
+        flex-direction: column;
+
+        &--comment {
+          width: 224px;
+          resize: none;
+          background: $alabaster;
+          height: 96px;
+          @include text(13px, 18px);
+          color: $black;
+          border: 2px solid $silver;
+          border-radius: 4px;
+          padding-left: 16px;
+          padding-top: 16px;
+          margin-bottom: 16px;
+          &:focus {
+            outline: none;
+            border: 2px solid $brainflix-blue;
+          }
+        }
+
+        &--button {
+          text-decoration: none;
+          @include subheader(14px, 22px);
+          height: 48px;
+          color: $white;
+          background-color: $brainflix-blue;
+          border-radius: 4px;
+          margin-bottom: 24px;
+          transition: all 0.5s ease;
+          &:focus {
+            outline: none;
+          }
+          &:hover {
+            cursor: pointer;
+            background-color: $brainflix-blue-dark;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include medium {
+  .comments {
+    margin: 0 24px;
+    &-container {
+      width: 720px;
+      &__join {
+        align-self: flex-start;
+        margin-left: 64px;
+      }
+      &__newcomment {
+        width: 720px;
+        justify-content: flex-start;
+        &--box {
+          flex-direction: row;
+          &--comment {
+            width: 440px;
+            height: 48px;
+            padding-left: 12px;
+            padding-top: 12px;
+            margin-left: 16px;
+            margin-right: 16px;
+          }
+          &--button {
+            width: 160px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// OLD COMMENTS
+
+.old-comments {
+  @include section;
+  margin: 0 16px 40px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-card {
+  margin-top: 16px;
+  width: 288px;
+  color: $black;
+  display: flex;
+  border-bottom: 1px solid $silver;
+
+  &__avatar {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $silver;
+    margin-right: 16px;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+
+    &--top {
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+
+      &--username {
+        @include subheader(14px, 22px);
+      }
+      &--date {
+        @include text(13px, 18px);
+        color: $silver;
+      }
+    }
+
+    &--text {
+      @include text(13px, 18px);
+      margin-bottom: 16px;
+    }
+  }
+}
+
+@include medium {
+  .old-comments {
+    margin: 0px 24px 40px 24px;
+  }
+}
+
+.comment-card {
+  width: 720px;
+
+  &__body{
+    &--top{
+      justify-content: flex-start;
+      &--username{
+        margin-right: 16px;
+      }
+    }
+    &--text{
+      width: 624px;
+    }
+  }
+}

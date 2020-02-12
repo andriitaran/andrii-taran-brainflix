@@ -1,0 +1,103 @@
+.main-video {
+  @include section;
+  margin: 32px 16px 40px 16px;
+
+  &-container {
+    width: 288px;
+    display: flex;
+    flex-direction: column;
+    &__top {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding-bottom: 24px;
+      border-bottom: 1px solid $silver;
+
+      &--title {
+        @include header(24px, 32px);
+        margin-bottom: 16px;
+      }
+      &--author {
+        @include subheader(14px, 22px);
+        margin-bottom: 32px;
+        margin-right: 8px;
+      }
+      &--date {
+        @include text(13px, 18px);
+        color: $silver;
+        margin-top: 2px;
+        width: 100px;
+      }
+      &--views {
+        @include text(13px, 18px);
+        width: 120px;
+        position: relative;
+        padding-left: 32px;
+      }
+      &--views img {
+        margin-right: 8px;
+        padding-top: 4px;
+        position: absolute;
+        top: -2px;
+        left: 0px;
+      }
+      &--likes {
+        @include text(13px, 18px);
+        width: 120px;
+        position: relative;
+        padding-left: 24px;
+      }
+      &--likes img {
+        margin-right: 8px;
+        padding-top: 4px;
+        position: absolute;
+        top: -1px;
+        left: 0px;
+      }
+    }
+    &__description {
+      @include text(13px, 18px);
+      padding-top: 24px;
+    }
+  }
+}
+
+@include medium {
+  .main-video {
+    margin: 48px 24px 64px 24px;
+    &-container {
+      width: 720px;
+      &__top {
+        &--title {
+          @include header(36px, 44px);
+          width: 720px;
+          margin-bottom: 24px;
+        }
+        &--author {
+          @include subheader(16px, 24px);
+          margin-bottom: 0;
+        }
+        &--date {
+          @include text(14px, 22px);
+          color: $silver;
+          margin-top: 2px;
+        }
+        &--views,
+        &--likes {
+          @include text(14px, 22px);
+          margin-top: 2px;
+        }
+        &--views {
+          margin-left: auto;
+        }
+        &--likes {
+          width: 80px;
+        }
+      }
+      &__description {
+        @include text(14px, 22px);
+        width: 520px;
+      }
+    }
+  }
+}

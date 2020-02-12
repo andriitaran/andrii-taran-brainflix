@@ -1,0 +1,18 @@
+//GLOBAL STYLING
+
+@import "../styles/partials/reset";
+@import "../styles/partials/breakpoints";
+@import "../styles/partials/colors";
+@import "../styles/partials/typography";
+
+//MIXIN for a section element that is used throught sections of the webpage
+
+@mixin section {
+  margin: 16px;
+  display: flex;
+}
+
+@import "../styles/partials/header";
+@import "../styles/partials/hero";
+@import "../styles/partials/main-video";
+@import "../styles/partials/comments";
