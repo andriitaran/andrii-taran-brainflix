@@ -1,0 +1,44 @@
+.videos-list {
+  @include section;
+  margin-top: 0;
+  &-container {
+    display: flex;
+    flex-direction: column;
+    &__header {
+      @include subheader(14px, 22px);
+      color: $silver;
+      margin-bottom: 40px;
+    }
+    &__video-element {
+      display: flex;
+      width: 288px;
+      height: 70px;
+      margin-bottom: 24px;
+
+      &--img {
+        width: 120px;
+        height: 70px;
+        border-radius: 2px;
+        margin-right: 16px;
+      }
+      &--info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        &--title {
+          @include subheader(14px, 22px);
+        }
+        &--channel {
+          @include text(13px, 18px);
+        }
+      }
+    }
+  }
+}
+
+@include medium {
+  .videos-list {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+}

@@ -1,8 +1,8 @@
 import React from "react";
 import timeSince from "./timeSince";
 
-export default function OldComments({ comments }) {
-  const oldComments = comments.map(comment => {
+export default function OldComments({ currentVideo }) {
+  const oldComments = currentVideo.comments.map(comment => {
     return (
       <div key={comment.id} className="comment-card">
         <div className="comment-card__avatar"></div>

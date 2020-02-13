@@ -2,6 +2,10 @@
   @include section;
   margin: 0 16px;
   height: 169px;
+  &-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
   &__container {
     width: 288px;
     display: flex;
@@ -50,7 +54,8 @@
       border-radius: 4px;
       margin-bottom: 16px;
       padding-top: 4px;
-      transition: all 0.5s ease;
+      border: 0;
+      // transition: all 0.5s ease;
       outline: none;
       &:focus {
         outline: none;
@@ -78,14 +83,20 @@
 
 @include medium {
   .header {
+    min-width: 720px;
     margin: 0;
     padding: 16px 24px;
     height: 80px;
-    &__container {
-      width: 720px;
-      margin: 0;
+    &-wrapper {
       flex-wrap: nowrap;
-      justify-content: flex-start;
+      margin-left: auto;
+    }
+    &__container {
+      width: 100%;
+      max-width: 1080px;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      margin: 0 auto;
       &--logo {
         justify-content: flex-start;
         width: 120px;

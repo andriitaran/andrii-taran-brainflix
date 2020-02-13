@@ -12,20 +12,26 @@ export default class Header extends Component {
           <div className="header__container--logo">
             <img src={Logo} alt="brainflix logo" />
           </div>
-          <div className="header__container--search">
-            <input
-              className="header__container--search-input"
-              type="text"
-              placeholder="Search"
-            />
-            <img className="header__container--search-img" src={Search} alt="search" />
-          </div>
+          <div className="header-wrapper">
+            <div className="header__container--search">
+              <input
+                className="header__container--search-input"
+                type="text"
+                placeholder="Search"
+              />
+              <img
+                className="header__container--search-img"
+                src={Search}
+                alt="search"
+              />
+            </div>
 
-          <button className="header__container--upload">
-            <img src={UploadIcon} height="16px" alt="upload icon" />
-            UPLOAD
-          </button>
-          <div className="header__container--avatar"></div>
+            <button className="header__container--upload">
+              <img src={UploadIcon} height="16px" alt="upload icon" />
+              UPLOAD
+            </button>
+            <div className="header__container--avatar"></div>
+          </div>
         </div>
       </section>
     );

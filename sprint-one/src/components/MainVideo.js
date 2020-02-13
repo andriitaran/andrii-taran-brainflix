@@ -1,40 +1,69 @@
-import React, { Component } from "react";
+import React from "react";
 import "../styles/main.css";
+import Play from "../assets/Icons/SVG/Icon-play.svg";
+import FullScreen from "../assets/Icons/SVG/Icon-fullscreen.svg";
+import Volume from "../assets/Icons/SVG/Icon-volume.svg";
 import Views from "../assets/Icons/SVG/Icon-views.svg";
 import Likes from "../assets/Icons/SVG/Icon-likes.svg";
+import timeSince from "./timeSince";
 
-export default class MainVideo extends Component {
-  render() {
-    return (
-      <section className="main-video">
-        <div className="main-video-container">
-          <div className="main-video-container__top">
-          <span className="main-video-container__top--title">
-            BMX Rampage: 2018 Highlights
-          </span>
-          <span className="main-video-container__top--author">By Red Cow</span>
-          <span className="main-video-container__top--date">12/18/2018</span>
-          <span className="main-video-container__top--views">
-            <img src={Views} alt="views" />
-            1,001,23
-          </span>
-          <span className="main-video-container__top--likes">
-            {" "}
-            <img src={Likes} alt="likes" />
-            110,985
-          </span>
+export default function MainVideo({ currentVideo }) {
+  // currentVideo.video.controls = false;
+
+  return (
+    <>
+      <section className="hero">
+        <div className="hero__container">
+          <video
+            id={currentVideo.id}
+            width="320"
+            height="183"
+            controls
+            poster={currentVideo.image}
+          >
+            <source src={currentVideo.video} type="video/mp4"></source>
+          </video>
+
+          {/* <div className="hero__container--controls">
+            <button className="hero__container--controls--play" id="playpause">
+              <img src={Play} alt="play button" />
+            </button>
+            <div className="hero__container--controls--scrubber"></div>
+            <div className="hero__container--controls--functions">
+              <img src={FullScreen} alt="full screen" />
+              <img src={Volume} alt="volume" />
+            </div>
+          </div> */}
+        </div>
+      </section>
+
+      <section className="video-info">
+        <div className="video-info-container">
+          <div className="video-info-container__top">
+            <span className="video-info-container__top--title">
+              {currentVideo.title}
+            </span>
+            <span className="video-info-container__top--author">
+              {currentVideo.channel}
+            </span>
+            <span className="video-info-container__top--date">
+              {timeSince(new Date(currentVideo.timestamp))}
+            </span>
+            <span className="video-info-container__top--views">
+              <img src={Views} alt="views" />
+              {currentVideo.views}
+            </span>
+            <span className="video-info-container__top--likes">
+              {" "}
+              <img src={Likes} alt="likes" />
+              {currentVideo.likes}
+            </span>
           </div>
-          <span className="main-video-container__description">
-            On a gusty day in Southern Utah, a group of 25 daring mountain
-            bikers blew the doors off what is possible on two wheels, unleashing
-            some of the biggest moments the sport has ever seen. While mother
-            nature only allowed for one full run before the conditions made it
-            impossible to ride, that was all that was needed for event veteran
-            Kyle Strait, who won the event for the second time -- eight years
-            after his first Red Cow Rampage title
+          <span className="video-info-container__description">
+            {currentVideo.description}
           </span>
         </div>
       </section>
-    );
-  }
+    </>
+  );
 }

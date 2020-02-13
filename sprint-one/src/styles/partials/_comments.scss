@@ -5,7 +5,8 @@
   margin-bottom: 0;
 
   &-container {
-    width: 288px;
+    // min-width: 288px;
+    max-width: 520px;
     display: flex;
     flex-direction: column;
 
@@ -22,9 +23,10 @@
 
     &__newcomment {
       display: flex;
-      width: 288px;
+      min-width: 288px;
+      max-width: 720px;
       border-bottom: 1px solid $silver;
-      justify-content: space-between;
+      justify-content: flex-start;
 
       &--avatar {
         flex-shrink: 0;
@@ -33,14 +35,17 @@
         background-image: url(../assets/Images/Mohan-muruge.jpg);
         background-size: cover;
         border-radius: 50%;
+        margin-right: 16px;
       }
 
       &--box {
         display: flex;
         flex-direction: column;
+        min-width: 224px;
+        max-width: 520px;
 
         &--comment {
-          width: 224px;
+          max-width: 440px;
           resize: none;
           background: $alabaster;
           height: 96px;
@@ -61,11 +66,13 @@
           text-decoration: none;
           @include subheader(14px, 22px);
           height: 48px;
+          width: 224px;
           color: $white;
           background-color: $brainflix-blue;
           border-radius: 4px;
           margin-bottom: 24px;
           transition: all 0.5s ease;
+          border: 0;
           &:focus {
             outline: none;
           }
@@ -83,7 +90,7 @@
   .comments {
     margin: 0 24px;
     &-container {
-      width: 720px;
+      min-width: 720px;
       &__join {
         align-self: flex-start;
         margin-left: 64px;
@@ -92,13 +99,13 @@
         width: 720px;
         justify-content: flex-start;
         &--box {
+          min-width: 720px;
           flex-direction: row;
           &--comment {
             width: 440px;
             height: 48px;
             padding-left: 12px;
             padding-top: 12px;
-            margin-left: 16px;
             margin-right: 16px;
           }
           &--button {
@@ -117,11 +124,13 @@
   margin: 0 16px 40px 16px;
   display: flex;
   flex-direction: column;
+  max-width: 520px;
 }
 
 .comment-card {
   margin-top: 16px;
-  width: 288px;
+  min-width: 288px;
+  max-width: 520px;
   color: $black;
   display: flex;
   border-bottom: 1px solid $silver;
@@ -165,20 +174,19 @@
   .old-comments {
     margin: 0px 24px 40px 24px;
   }
-}
+  .comment-card {
+    min-width: 720px;
 
-.comment-card {
-  width: 720px;
-
-  &__body{
-    &--top{
-      justify-content: flex-start;
-      &--username{
-        margin-right: 16px;
+    &__body {
+      &--top {
+        justify-content: flex-start;
+        &--username {
+          margin-right: 16px;
+        }
       }
-    }
-    &--text{
-      width: 624px;
+      &--text {
+        width: 624px;
+      }
     }
   }
 }

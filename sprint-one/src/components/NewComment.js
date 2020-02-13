@@ -6,7 +6,7 @@ export default class NewComment extends Component {
       <section className="comments">
         <div className="comments-container">
           <span className="comments-container__commentcount">
-            {this.props.comments.length} Comments
+            {this.props.currentVideo.comments.length} Comments
           </span>
           <span className="comments-container__join">
             JOIN THE CONVERSATION
