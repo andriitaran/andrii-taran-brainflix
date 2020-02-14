@@ -22,5 +22,9 @@ export default function OldComments({ currentVideo }) {
       </div>
     );
   });
-  return <section className="old-comments">{oldComments}</section>;
+  return (
+    <section className="old-comments">
+      <div className="old-comments-container">{oldComments}</div>
+    </section>
+  );
 }

@@ -7,36 +7,11 @@ import Views from "../assets/Icons/SVG/Icon-views.svg";
 import Likes from "../assets/Icons/SVG/Icon-likes.svg";
 import timeSince from "./timeSince";
 
-export default function MainVideo({ currentVideo }) {
-  // currentVideo.video.controls = false;
+export default function VideoInfo({ currentVideo }) {
+
 
   return (
     <>
-      <section className="hero">
-        <div className="hero__container">
-          <video
-            id={currentVideo.id}
-            width="320"
-            height="183"
-            controls
-            poster={currentVideo.image}
-          >
-            <source src={currentVideo.video} type="video/mp4"></source>
-          </video>
-
-          {/* <div className="hero__container--controls">
-            <button className="hero__container--controls--play" id="playpause">
-              <img src={Play} alt="play button" />
-            </button>
-            <div className="hero__container--controls--scrubber"></div>
-            <div className="hero__container--controls--functions">
-              <img src={FullScreen} alt="full screen" />
-              <img src={Volume} alt="volume" />
-            </div>
-          </div> */}
-        </div>
-      </section>
-
       <section className="video-info">
         <div className="video-info-container">
           <div className="video-info-container__top">

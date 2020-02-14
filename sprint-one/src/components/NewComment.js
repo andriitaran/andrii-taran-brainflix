@@ -3,28 +3,28 @@ import React, { Component } from "react";
 export default class NewComment extends Component {
   render() {
     return (
-      <section className="comments">
-        <div className="comments-container">
-          <span className="comments-container__commentcount">
+      <section className="new-comment">
+        <div className="new-comment-container">
+          <span className="new-comment-container__commentcount">
             {this.props.currentVideo.comments.length} Comments
           </span>
-          <span className="comments-container__join">
+          <span className="new-comment-container__join">
             JOIN THE CONVERSATION
           </span>
-          <div className="comments-container__newcomment">
-            <div className="comments-container__newcomment--avatar"></div>
+          <div className="new-comment-container__newcomment">
+            <div className="new-comment-container__newcomment--avatar"></div>
             <form
-              className="comments-container__newcomment--box"
+              className="new-comment-container__newcomment--box"
               id="submit-form"
             >
               <textarea
-                className="comments-container__newcomment--box--comment"
+                className="new-comment-container__newcomment--box--comment"
                 name="comment"
                 id="new-comment"
                 placeholder="Add a new comment"
               ></textarea>
               <input
-                className="comments-container__newcomment--box--button"
+                className="new-comment-container__newcomment--box--button"
                 id="button"
                 type="submit"
                 value="COMMENT"

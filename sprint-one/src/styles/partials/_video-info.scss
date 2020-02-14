@@ -1,99 +1,3 @@
-// ACTUAL VIDEO
-
-@mixin play-bar-elements {
-  background-color: $black-overlay;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero {
-  &__container {
-    // padding: 8px 16px;
-    display: flex;
-
-    &--controls {
-      width: 288px;
-      display: flex;
-      &--play {
-        @include play-bar-elements;
-        height: 32px;
-        width: 48px;
-        margin-right: 8px;
-      }
-      &--scrubber {
-        @include play-bar-elements;
-        height: 32px;
-        width: 160px;
-        margin-right: 8px;
-      }
-      &--functions {
-        @include play-bar-elements;
-        justify-content: space-evenly;
-        height: 32px;
-        width: 64px;
-      }
-    }
-  }
-  &__container video {
-    align-self: center;
-    width: 100vw;
-    height: 57vw;
-  }
-  &__container video[poster] {
-    object-fit: cover;
-  }
-}
-
-@include medium {
-  .hero {
-    background: black;
-    display: flex;
-    justify-content: center;
-    &__container {
-      // width: 700px;
-      padding-bottom: 16px;
-      // &--media-bar {
-      //   width: 684px;
-      //   justify-content: flex-start;
-      //   &--play {
-      //     margin-right: 16px;
-      //   }
-      //   &--scrubber {
-      //     width: 519px;
-      //     margin-right: 16px;
-      //   }
-      //   &--functions {
-      //     width: 68px;
-      //   }
-      // }
-    }
-    &__container video {
-      width: 700px;
-      height: 400px;
-    }
-  }
-}
-
-@include large {
-  .hero {
-    &__container {
-      width: 944px;
-      height: 540px;
-      &--media-bar {
-        width: 912px;
-        &--scrubber {
-          width: 751px;
-        }
-        &--functions {
-          width: 84px;
-        }
-      }
-    }
-  }
-}
-
 // VIDEO INFO
 
 .video-info {
@@ -106,13 +10,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: 0 auto;
     &__top {
       width: 288px;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       padding-bottom: 24px;
-      
 
       &--title {
         @include header(24px, 32px);
@@ -168,7 +72,8 @@
   .video-info {
     margin: 48px 24px 64px 24px;
     &-container {
-      width: 720px;
+      min-width: 720px;
+      margin: 0 auto;
       &__top {
         width: 720px;
         border-bottom: 1px solid $silver;
@@ -203,6 +108,22 @@
         width: 520px;
         border: none;
       }
+    }
+  }
+}
+
+@include large {
+  .video-info {
+    &-container__top{
+      min-width: 712px;
+      max-width: 712px;
+    }
+    margin-left: 180px;
+    min-width: 712px;
+    max-width: 712px;
+    &-container {
+      min-width: 712px;
+      max-width: 712px;
     }
   }
 }
