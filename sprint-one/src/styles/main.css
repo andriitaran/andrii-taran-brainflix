@@ -213,21 +213,22 @@ body {
   display: -ms-flexbox;
   display: flex;
   position: relative;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .hero__container--controls {
   bottom: 8px;
-  left: 16px;
   position: absolute;
   width: 95%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 0 auto;
 }
 
 .hero__container--controls--play {
-  background-color: rgba(32, 32, 32, 0.5);
+  background-color: rgba(32, 32, 32, 0.75);
   border-radius: 4px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -245,7 +246,7 @@ body {
 }
 
 .hero__container--controls--scrubber {
-  background-color: rgba(32, 32, 32, 0.5);
+  background-color: rgba(32, 32, 32, 0.75);
   border-radius: 4px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -262,7 +263,7 @@ body {
 }
 
 .hero__container--controls--functions {
-  background-color: rgba(32, 32, 32, 0.5);
+  background-color: rgba(32, 32, 32, 0.75);
   border-radius: 4px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -303,20 +304,19 @@ body {
         -ms-flex-pack: center;
             justify-content: center;
   }
-  .hero__container {
-    height: 400px;
-  }
   .hero__container--controls {
     width: 95%;
   }
   .hero__container video {
-    width: 700px;
-    height: 400px;
+    max-width: 944px;
+    max-height: 540px;
+    width: 91vw;
+    height: 52vw;
   }
 }
 
 @media only screen and (min-width: 1440px) {
-  .hero__container__container video {
+  .hero__container {
     width: 944px;
     height: 540px;
   }
@@ -734,6 +734,7 @@ body {
 }
 
 .comment-card__body--top {
+  min-width: 232px;
   margin-bottom: 16px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -820,6 +821,8 @@ body {
           flex-direction: column;
   margin: 0 auto;
   width: 520px;
+  max-height: 800px;
+  overflow: scroll;
 }
 
 .videos-list-container__header {

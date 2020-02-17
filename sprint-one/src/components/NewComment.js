@@ -1,7 +1,21 @@
 import React, { Component } from "react";
+import uuid from "uuid/v1";
 
 export default class NewComment extends Component {
   render() {
+    const handleSubmit = event => {
+      event.preventDefault();
+      let comment = {
+        name: "John Doe",
+        comment: event.target.comment.value,
+        id: uuid(),
+        timestamp: new Date()
+      };
+      event.target.comment.value.length < 2 // checks if comment length is < 2
+        ? alert("Please write something meaningful")
+        : this.props.addComment(comment);
+      document.querySelector("#submit-form").reset();
+    };
     return (
       <section className="new-comment">
         <div className="new-comment-container">
@@ -16,6 +30,7 @@ export default class NewComment extends Component {
             <form
               className="new-comment-container__newcomment--box"
               id="submit-form"
+              onSubmit={handleSubmit}
             >
               <textarea
                 className="new-comment-container__newcomment--box--comment"

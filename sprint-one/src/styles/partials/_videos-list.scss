@@ -6,6 +6,8 @@
     flex-direction: column;
     margin: 0 auto;
     width: 520px;
+    max-height: 800px;
+    overflow: scroll;
     &__header {
       @include subheader(14px, 22px);
       color: $silver;

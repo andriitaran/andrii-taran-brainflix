@@ -16,14 +16,14 @@
 @import "../styles/partials/hero";
 @import "../styles/partials/video-info";
 @import "../styles/partials/comments";
-@import "../styles/partials/videos";
+@import "../styles/partials/videos-list";
 
 @include large {
   .wrapper-1 {
     display: flex;
     justify-content: flex-start;
   }
-  .wrapper-2 {
-    // width: 900px;
-  }
+  // .wrapper-2 {
+  //   // width: 900px;
+  // }
 }

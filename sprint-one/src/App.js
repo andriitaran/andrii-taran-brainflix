@@ -6,8 +6,6 @@ import VideoInfo from "./components/VideoInfo";
 import Comments from "./components/Comments";
 import VideosList from "./components/VideosList";
 import uuid from "uuid/v1";
-import CurrentVideoFile from "./assets/Video/BrainStation.mp4";
-
 
 export default class App extends Component {
   state = {
@@ -23,7 +21,7 @@ export default class App extends Component {
         id: uuid(),
         title:
           "Les Houches The Hidden Gem Of The Become A Travel Pro In One Easy Lesson",
-        channel: "Andrii Taran",
+        channel: "Scotty Cranmer",
         image:
           "https://images.unsplash.com/photo-1514565131-fce0801e5785?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
       },
@@ -38,7 +36,7 @@ export default class App extends Component {
         id: uuid(),
         title:
           "Les Houches The Hidden Gem Of The Become A Travel Pro In One Easy Lesson",
-        channel: "Andrii Taran",
+        channel: "Scotty Cranmer",
         image:
           "https://images.unsplash.com/photo-1514565131-fce0801e5785?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
       },
@@ -53,7 +51,37 @@ export default class App extends Component {
         id: uuid(),
         title:
           "Les Houches The Hidden Gem Of The Become A Travel Pro In One Easy Lesson",
-        channel: "Andrii Taran",
+        channel: "Scotty Cranmer",
+        image:
+          "https://images.unsplash.com/photo-1514565131-fce0801e5785?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+      },
+      {
+        id: uuid(),
+        title: "Become A Travel Pro In One Easy Lesson",
+        channel: "Scotty Cranmer",
+        image:
+          "https://previews.123rf.com/images/seventyfour74/seventyfour741811/seventyfour74181100176/111337433-man-riding-bmx-bike.jpg"
+      },
+      {
+        id: uuid(),
+        title:
+          "Les Houches The Hidden Gem Of The Become A Travel Pro In One Easy Lesson",
+        channel: "Scotty Cranmer",
+        image:
+          "https://images.unsplash.com/photo-1514565131-fce0801e5785?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+      },
+      {
+        id: uuid(),
+        title: "Become A Travel Pro In One Easy Lesson",
+        channel: "Scotty Cranmer",
+        image:
+          "https://previews.123rf.com/images/seventyfour74/seventyfour741811/seventyfour74181100176/111337433-man-riding-bmx-bike.jpg"
+      },
+      {
+        id: uuid(),
+        title:
+          "Les Houches The Hidden Gem Of The Become A Travel Pro In One Easy Lesson",
+        channel: "Scotty Cranmer",
         image:
           "https://images.unsplash.com/photo-1514565131-fce0801e5785?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
       }
@@ -72,13 +100,14 @@ export default class App extends Component {
       duration: "type of <string>",
       video: "http://localhost:3000/Video/BrainStation.mp4",
       timestamp: 1578869853000,
+
       comments: [
         {
           id: uuid(),
           name: "Michael Lyons",
           timestamp:
             "Sun Jan 26 2020 08:20:24 GMT-0800 (Pacific Standard Time)",
-          commentText:
+          comment:
             "They BLEW the ROOF off at their last show, once everyone started figuring out they were going. This is still simply the greatest opening of a concert I have EVER witnessed."
         },
         {
@@ -86,7 +115,7 @@ export default class App extends Component {
           name: "Gary Wong",
           timestamp:
             "Tue Dec 31 2019 08:20:24 GMT-0800 (Pacific Standard Time)",
-          commentText:
+          comment:
             "Every time I see him shred I feel so motivated to get off my couch and hop on my board. He’s so talented! I wish I can ride like him one day so I can really enjoy myself!"
         },
         {
@@ -94,11 +123,19 @@ export default class App extends Component {
           name: "Theodore Duncan",
           timestamp:
             "Mon Nov 25 2019 08:20:24 GMT-0800 (Pacific Standard Time)",
-          commentText:
+          comment:
             "How can someone be so good!!! You can tell he lives for this and loves to do it every day. Everytime I see him I feel instantly happy! He’s definitely my favorite ever!"
         }
       ]
     }
+  };
+
+  addComment = comment => {
+    let newComments = this.state.currentVideo.comments;
+    newComments.unshift(comment);
+    this.setState({
+      comments: newComments
+    });
   };
 
   render() {
@@ -109,7 +146,10 @@ export default class App extends Component {
         <section className="wrapper-1">
           <section className="wrapper-2">
             <VideoInfo currentVideo={this.state.currentVideo} />
-            <Comments currentVideo={this.state.currentVideo} />
+            <Comments
+              currentVideo={this.state.currentVideo}
+              addComment={this.addComment}
+            />
           </section>
           <VideosList videos={this.state.videos} />
         </section>

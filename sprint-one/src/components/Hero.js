@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/main.css";
 import Play from "../assets/Icons/SVG/Icon-play.svg";
+import Pause from "../assets/Icons/SVG/Icon-pause.svg";
 import FullScreen from "../assets/Icons/SVG/Icon-fullscreen.svg";
 import Volume from "../assets/Icons/SVG/Icon-volume.svg";
 import Views from "../assets/Icons/SVG/Icon-views.svg";
@@ -9,7 +10,15 @@ import Likes from "../assets/Icons/SVG/Icon-likes.svg";
 export default function Hero({ currentVideo }) {
   const videoControl = event => {
     const mainVideo = document.querySelector(".current-video");
-    mainVideo.play();
+    if (event.target.id === "playpause") {
+      if (mainVideo.paused) {
+        mainVideo.play();
+
+      } else {
+        mainVideo.pause();
+        
+      }
+    }
   };
 
   return (

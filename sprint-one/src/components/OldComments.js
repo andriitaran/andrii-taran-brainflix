@@ -16,7 +16,7 @@ export default function OldComments({ currentVideo }) {
             </span>
           </div>
           <span className="comment-card__body--text">
-            {comment.commentText}
+            {comment.comment}
           </span>
         </div>
       </div>
