@@ -142,7 +142,7 @@ export default class App extends Component {
     return (
       <>
         <Header />
-        <Hero currentVideo={this.state.currentVideo} />
+        {/* <Hero currentVideo={this.state.currentVideo} />
         <section className="wrapper-1">
           <section className="wrapper-2">
             <VideoInfo currentVideo={this.state.currentVideo} />
@@ -152,7 +152,7 @@ export default class App extends Component {
             />
           </section>
           <VideosList videos={this.state.videos} />
-        </section>
+        </section> */}
       </>
     );
   }
