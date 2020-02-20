@@ -9,10 +9,11 @@ import {
   Redirect,
   Link
 } from "react-router-dom";
+
 ReactDOM.render(
   <Router>
     <Switch>
-      <Redirect from="/" exact to="/videos/1af0jruup5gu" />
+      <Route path="/" component={App} exact />
       <Route path="/videos/:id" component={App} />
       <Route path="/upload" component={Upload} />
     </Switch>

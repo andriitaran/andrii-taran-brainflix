@@ -8,8 +8,6 @@ export default class NewComment extends Component {
       let comment = {
         name: "John Doe",
         comment: event.target.comment.value,
-        id: uuid(),
-        timestamp: new Date()
       };
       event.target.comment.value.length < 2 // checks if comment length is < 2
         ? alert("Please write something meaningful")
