@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 export default function VideosList({ videos }) {
   const videosList = videos.map(video => {
     return (
-      <Link to={`${video.id}`} key={video.id}>
+      <Link
+        to={`/videos/${video.id}`}
+        key={video.id}
+      >
         <div className="videos-list-container__video-element" key={video.id}>
           <img
             className="videos-list-container__video-element--img"

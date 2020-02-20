@@ -915,6 +915,10 @@ body {
   }
 }
 
+a {
+  text-decoration: none;
+}
+
 .upload-page {
   border-top: 1px solid #afafaf;
 }
