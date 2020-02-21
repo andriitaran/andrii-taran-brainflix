@@ -6,6 +6,7 @@ import VideoPlayer from "./components/VideoPlayer";
 import VideoInfo from "./components/VideoInfo";
 import Comments from "./components/Comments";
 import VideosList from "./components/VideosList";
+import { Redirect } from "react-router-dom";
 
 const apiKey = "c354bbd6-1b57-4f1e-b0f3-8743d4495710";
 
@@ -16,11 +17,15 @@ export default class App extends Component {
     loading: false
   };
 
+  // function for adding new comments
   addComment = comment => {
-    // function for adding new comments
+    const randomVideoId =
+      this.props && this.props.match.params.id
+        ? this.props.match.params.id
+        : this.state.currentVideo.id;
     axios({
-      method: "post", // posts new comment to API
-      url: `https://project-2-api.herokuapp.com/videos/${this.props.match.params.id}/comments?api_key=<${apiKey}>`,
+      method: "post",
+      url: `https://project-2-api.herokuapp.com/videos/${randomVideoId}/comments?api_key=<${apiKey}>`,
       data: {
         name: comment.name,
         comment: comment.comment
@@ -32,7 +37,7 @@ export default class App extends Component {
       .then(response => {
         return axios.get(
           //gets video with updated comments
-          `https://project-2-api.herokuapp.com/videos/${this.props.match.params.id}?api_key=<${apiKey}>`
+          `https://project-2-api.herokuapp.com/videos/${randomVideoId}?api_key=<${apiKey}>`
         );
       })
       .then(response => {
@@ -46,46 +51,33 @@ export default class App extends Component {
       });
   };
 
-  // componentDidMount() {
-  //   axios
-  //     .all([
-  //       axios.get(
-  //         `https://project-2-api.herokuapp.com/videos/1af0jruup5gu?api_key=<${apiKey}>`
-  //       ),
-  //       axios.get(
-  //         `https://project-2-api.herokuapp.com/videos?api_key=<${apiKey}>`
-  //       )
-  //     ])
-  //     .then(responseArr => {
-  //       responseArr[0].data.comments.sort((a, b) => {
-  //         return b.timestamp - a.timestamp;
-  //       });
-  //       this.setState({
-  //         currentVideo: responseArr[0].data,
-  //         videos: responseArr[1].data.filter(video => {
-  //           return video.id !== "1af0jruup5gu";
-  //         }),
-  //         loading: true
-  //       });
-  //     });
-  // }
-
-  // let randomVideo = axios
-  //   .get(`https://project-2-api.herokuapp.com/videos?api_key=<${apiKey}>`)
-  //   .then(response => {
-  //     return response.data[Math.floor(Math.random() * response.data.length)];
-  //   });
-
-  // console.log(randomVideo);
+  // function that deletes a comment
+  deleteComment = comment => {
+    axios
+      .delete(
+        `https://project-2-api.herokuapp.com/videos/${this.props.match.params.id}/comments/${comment.id}?api_key=<${apiKey}>`
+      )
+      .then(response => {
+        return axios.get(
+          //gets video with updated comments
+          `https://project-2-api.herokuapp.com/videos/${this.props.match.params.id}?api_key=<${apiKey}>`
+        );
+      })
+      .then(response => {
+        this.setState({
+          currentVideo: response.data //updates video with updated comments
+        });
+      });
+  };
 
   componentDidMount() {
     axios
       .get(`https://project-2-api.herokuapp.com/videos?api_key=<${apiKey}>`)
       .then(responseArr => {
-        const randomVideo =
+        const randomVideo = // gets random video
           responseArr.data[Math.floor(Math.random() * responseArr.data.length)];
         this.setState({
-          videos: responseArr.data.filter(video => {
+          videos: responseArr.data.filter(video => { // excludes main video from array of side videos
             return video.id !== randomVideo.id;
           })
         });
@@ -101,7 +93,7 @@ export default class App extends Component {
               return b.timestamp - a.timestamp;
             });
             this.setState({
-              currentVideo: response.data,
+              currentVideo: response.data, // sets random video as the main video
               loading: true
             });
           });
@@ -146,6 +138,8 @@ export default class App extends Component {
             <Comments
               currentVideo={this.state.currentVideo}
               addComment={this.addComment}
+              deleteComment={this.deleteComment}
+              likeComment={this.likeComment}
               loading={this.state.loading}
             />
           </section>

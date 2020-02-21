@@ -738,6 +738,14 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.comment-card__body--delete {
+  height: 20px;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
 }
 
 .comment-card__body--top {
@@ -774,7 +782,7 @@ body {
   font-size: 13px;
   line-height: 18px;
   color: #323232;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 @media only screen and (min-width: 768px) {

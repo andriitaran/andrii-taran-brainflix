@@ -172,6 +172,13 @@
   &__body {
     display: flex;
     flex-direction: column;
+    margin-bottom: 16px;
+    width: 100%;
+
+    &--delete {
+      height: 20px;
+      align-self: flex-end;
+    }
 
     &--top {
       min-width: 232px;
@@ -191,7 +198,7 @@
 
     &--text {
       @include text(13px, 18px);
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
   }
 }
