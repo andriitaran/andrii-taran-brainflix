@@ -3,7 +3,7 @@ import timeSince from "./timeSince";
 
 export default class OldComments extends Component {
   render() {
-    const handleDelete = event => {
+    const handleDelete = event => { //deletes a comment
       let comment = {
         id: event.target.id
       };

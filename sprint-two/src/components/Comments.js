@@ -19,6 +19,6 @@ export default function Comments({
       </>
     );
   } else {
-    return <h1>Loading...</h1>;
+    return <h1>Loading...</h1>; // displays "Loading" while comments are loading from an API
   }
 }

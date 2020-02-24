@@ -1,8 +1,5 @@
 import React from "react";
 import "../styles/main.css";
-import Play from "../assets/Icons/SVG/Icon-play.svg";
-import FullScreen from "../assets/Icons/SVG/Icon-fullscreen.svg";
-import Volume from "../assets/Icons/SVG/Icon-volume.svg";
 import Views from "../assets/Icons/SVG/Icon-views.svg";
 import Likes from "../assets/Icons/SVG/Icon-likes.svg";
 import timeSince from "./timeSince";

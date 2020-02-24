@@ -3,7 +3,7 @@ import uuid from "uuid/v1";
 
 export default class NewComment extends Component {
   render() {
-    const handleSubmit = event => {
+    const handleSubmit = event => { //creates new comment
       event.preventDefault();
       let comment = {
         name: "John Doe",
@@ -11,15 +11,15 @@ export default class NewComment extends Component {
       };
       event.target.comment.value.length < 2 // checks if comment length is < 2
         ? alert("Please write something meaningful")
-        : this.props.addComment(comment);
+        : this.props.addComment(comment); //calls funtion to add comment to the API
       document.querySelector("#submit-form").reset();
     };
     return (
       <section className="new-comment">
         <div className="new-comment-container">
           <span className="new-comment-container__commentcount">
-            {this.props.currentVideo.comments.length} Comments
-          </span>
+            {this.props.currentVideo.comments.length} Comments 
+          </span> 
           <span className="new-comment-container__join">
             JOIN THE CONVERSATION
           </span>

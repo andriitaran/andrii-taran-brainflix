@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import "../styles/main.css";
 import Play from "../assets/Icons/SVG/Icon-play.svg";
-import Pause from "../assets/Icons/SVG/Icon-pause.svg";
 import FullScreen from "../assets/Icons/SVG/Icon-fullscreen.svg";
 import Volume from "../assets/Icons/SVG/Icon-volume.svg";
-import Views from "../assets/Icons/SVG/Icon-views.svg";
-import Likes from "../assets/Icons/SVG/Icon-likes.svg";
 import DefaultVideo from "../assets/Video/BrainStation.mp4";
 
 export default class VideoPlayer extends Component {
-  constructor(props) {
+  constructor(props) { //create a ref for the video object
     super(props);
     this.mainVideo = React.createRef();
   }
@@ -26,7 +23,6 @@ export default class VideoPlayer extends Component {
             poster={this.props.currentVideo.image}
           >
             <source
-              // src={this.props.currentVideo.video}
               src={DefaultVideo}
               type="video/mp4"
             ></source>

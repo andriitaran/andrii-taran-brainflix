@@ -26,7 +26,7 @@ export default function VideosList({ videos }) {
 
   videosList.sort((a, b) => {
     return b.timestamp - a.timestamp;
-  });
+  }); // sorts list of video by timestamp
 
   return (
     <section className="videos-list">
