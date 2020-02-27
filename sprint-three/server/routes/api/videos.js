@@ -6,7 +6,15 @@ const videosFile = __dirname + "/../../models/videos.json";
 const videos = require(videosFile);
 
 router.get("/", (req, res) => {
-  // gets and array of videos with 4 key:value pairs
+  //gets and array of videos with 4 key:value pairs
+  // const videoList = videos.map(video => {
+  //   return {
+  //     id: video.id,
+  //     title: video.title,
+  //     channel: video.channel,
+  //     image: video.image
+  //   };
+  // });
   return res.send(
     videos.map(video => {
       return (video = {
@@ -25,27 +33,32 @@ router.get("/:id", (req, res) => {
     return video.id === req.params.id;
   });
   if (video.id === req.params.id) {
-    return res.send(
-      200,
-      (video = {
-        id: video.id,
-        title: video.title,
-        channel: video.channel,
-        image: video.image,
-        description: video.description,
-        views: video.views,
-        likes: video.likes,
-        duration: video.duration,
-        video: video.video,
-        timestamp: video.timestamp,
-        comments: video.comments
-      })
-    );
+    return res.json(video);
   } else {
     res.status(404).json({
-      error: "Video ID is invalid"
+      error: `Video ID${req.params.id} is not found`
     });
   }
+});
+
+router.post("/", (req, res) => {
+  const newVideo = {
+    id: req.body.id,
+    title: req.body.title,
+    channel: req.body.channel,
+    image: req.body.image,
+    desciption: req.body.desciption,
+    views: "0",
+    likes: "0",
+    duration: "0",
+    video: "https://project-2-api.herokuapp.com/stream",
+    timestamp: Math.round(new Date().getTime()),
+    comments: []
+  };
+  console.log(newVideo);
+  videos.push(newVideo);
+  helper.writeJSONFile(videosFile, videos);
+  res.json(videos);
 });
 
 router.post("/:id/comments", (req, res) => {
@@ -57,7 +70,8 @@ router.post("/:id/comments", (req, res) => {
     const newComment = {
       id: helper.getNewId(),
       name: req.body.name,
-      comment: req.body.comment
+      comment: req.body.comment,
+      timestamp: Math.round(new Date().getTime())
     };
     if (!newComment.name || !newComment.comment) {
       return res.status(400).json({
@@ -74,7 +88,7 @@ router.post("/:id/comments", (req, res) => {
     res.json(video);
   } else {
     res.status(404).json({
-      error: "Video ID is invalid"
+      error: `Video ID${req.params.id} is not found`
     });
   }
 });
@@ -95,18 +109,35 @@ router.delete("/:videoId/comments/:commentId", (req, res) => {
       res.json(video.comments);
     } else {
       res.status(404).json({
-        error: "Comment ID is invalid"
+        error: `Comment ID${req.params.id} is not found`
       });
     }
   } else {
     res.status(404).json({
-      error: "Video ID is invalid"
+      error: `Video ID${req.params.id} is not found`
     });
   }
 });
 
-// router.put("/", (req, res) => {
-//   res.send(`Updated comment`);
-// });
+router.put("/:id/likes", (req, res) => {
+  let video = videos.find(video => {
+    return video.id === req.params.id;
+  });
+  if (video.id === req.params.id) {
+    const likesNumber = parseInt(video.likes.replace(/,/g, ""), 10) + 1;
+    video.likes = likesNumber.toLocaleString();
+    videos.forEach(newVideo => {
+      if (newVideo.id === video.id) {
+        newVideo = video;
+      }
+    });
+    helper.writeJSONFile(videosFile, videos);
+    return res.json(video);
+  } else {
+    res.status(404).json({
+      error: `Video ID${req.params.id} is not found`
+    });
+  }
+});
 
 module.exports = router;

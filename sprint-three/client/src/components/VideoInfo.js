@@ -8,12 +8,12 @@ export default function VideoInfo({ currentVideo, likeVideo }) {
   const handleLike = event => {
     //adds likes
     event.preventDefault();
-    let likesNumber = parseInt(currentVideo.likes.replace(/,/g, ""), 10) + 1; //converts string with comma into a number
+    // let likesNumber = parseInt(currentVideo.likes.replace(/,/g, ""), 10) + 1; //converts string with comma into a number
     let video = {
       id: currentVideo.id,
-      likes: likesNumber.toLocaleString() //converts number into a string with coma
+      // likes: likesNumber.toLocaleString() //converts number into a string with coma
     };
-    console.log(video.likes);
+    // console.log(video.likes);
     likeVideo(video);
   };
 

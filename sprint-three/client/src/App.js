@@ -7,8 +7,6 @@ import VideoInfo from "./components/VideoInfo";
 import Comments from "./components/Comments";
 import VideosList from "./components/VideosList";
 
-const apiKey = "c354bbd6-1b57-4f1e-b0f3-8743d4495710";
-
 export default class App extends Component {
   state = {
     videos: [],
@@ -17,8 +15,11 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    axios
-      .get(`https://project-2-api.herokuapp.com/videos?api_key=<${apiKey}>`) //gets videos from API
+    axios({
+      method: "get",
+      url: `http://localhost:5000/api/videos`,
+      headers: { "Access-Control-Allow-Origin": "*" }
+    }) //gets videos from API
       .then(responseArr => {
         const randomVideo = // assigns random video as a main video
           responseArr.data[Math.floor(Math.random() * responseArr.data.length)];
@@ -34,7 +35,7 @@ export default class App extends Component {
         axios
           .get(
             //gets main video(random video) details
-            `https://project-2-api.herokuapp.com/videos/${randomVideo.id}?api_key=<${apiKey}>`
+            `http://localhost:5000/api/videos/${randomVideo.id}`
           )
           .then(response => {
             response.data.comments.sort((a, b) => {
@@ -50,17 +51,18 @@ export default class App extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log("Component was updated!");
     if (prevProps.match.params.id !== this.props.match.params.id) {
       // checks if new video is not the same as a previous one
       axios
         .all([
           axios.get(
             //gets main video details from an API
-            `https://project-2-api.herokuapp.com/videos/${this.props.match.params.id}?api_key=<${apiKey}>`
+            `http://localhost:5000/api/videos/${this.props.match.params.id}`
           ),
           axios.get(
             //gets videos from API
-            `https://project-2-api.herokuapp.com/videos?api_key=<${apiKey}>`
+            `http://localhost:5000/api/videos/`
           )
         ])
         .then(responseArr => {
@@ -89,7 +91,7 @@ export default class App extends Component {
         : this.state.currentVideo.id;
     axios({
       method: "post", //posts comments to the API
-      url: `https://project-2-api.herokuapp.com/videos/${randomVideoId}/comments?api_key=<${apiKey}>`,
+      url: `http://localhost:5000/api/videos/${randomVideoId}/comments`,
       data: {
         name: comment.name,
         comment: comment.comment
@@ -101,11 +103,11 @@ export default class App extends Component {
       .then(response => {
         return axios.get(
           //gets video with updated comments
-          `https://project-2-api.herokuapp.com/videos/${randomVideoId}?api_key=<${apiKey}>`
+          `http://localhost:5000/api/videos/${randomVideoId}`
         );
       })
       .then(response => {
-        console.log(response); //sorts comments by time of posting
+        //sorts comments by time of posting
         response.data.comments.sort((a, b) => {
           return b.timestamp - a.timestamp;
         });
@@ -117,17 +119,25 @@ export default class App extends Component {
 
   // function that deletes a comment
   deleteComment = comment => {
+    const randomVideoId = //to make sure adding comments work correctly only on the first loaded video, we're comparing main video with random video stored in state
+      this.props && this.props.match.params.id
+        ? this.props.match.params.id
+        : this.state.currentVideo.id;
     axios
       .delete(
-        `https://project-2-api.herokuapp.com/videos/${this.props.match.params.id}/comments/${comment.id}?api_key=<${apiKey}>`
+        `http://localhost:5000/api/videos/${randomVideoId}/comments/${comment.id}`
       )
       .then(response => {
         return axios.get(
           //gets video with updated comments
-          `https://project-2-api.herokuapp.com/videos/${this.props.match.params.id}?api_key=<${apiKey}>`
+          `http://localhost:5000/api/videos/${randomVideoId}`
         );
       })
       .then(response => {
+        //sorts comments by time of posting
+        response.data.comments.sort((a, b) => {
+          return b.timestamp - a.timestamp;
+        });
         this.setState({
           currentVideo: response.data //updates video with updated comments
         });
@@ -135,15 +145,45 @@ export default class App extends Component {
   };
 
   likeVideo = video => {
-    axios
-      .put(
-        `https://project-2-api.herokuapp.com/videos/${this.props.match.params.id}/likes?api_key=<${apiKey}>`
-      )
-      .then(response => {
-        this.setState({
-          currentVideo: response.data //updates video with updated likes
-        });
+    // axios
+    //   .put(
+    //     `http://localhost:5000/api/videos/${this.props.match.params.id}/likes`
+    //   )
+    //   .then(response => {
+    //     this.setState({
+    //       currentVideo: response.data //updates video with updated likes
+    //     });
+    //   });
+    axios({
+      method: "put",
+      url: `http://localhost:5000/api/videos/${this.props.match.params.id}/likes`,
+      headers: { "Access-Control-Allow-Origin": "*" }
+    }).then(response => {
+      this.setState({
+        currentVideo: response.data //updates video with updated likes
       });
+    });
+  };
+
+  uploadVideo = video => {
+    axios({
+      method: "post", //posts comments to the API
+      url: `http://localhost:5000/api/videos/}`,
+      data: {
+        id: video.id,
+        title: video.title,
+        channel: video.channel,
+        desciption: video.description,
+        image: video.image
+      },
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }).then(response => {
+      this.setState({
+        videos: response.data //updates video with updated comments
+      });
+    });
   };
 
   render() {
