@@ -15,39 +15,52 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    axios({
-      method: "get",
-      url: `http://localhost:5000/api/videos`,
-      headers: { "Access-Control-Allow-Origin": "*" }
-    }) //gets videos from API
-      .then(responseArr => {
-        const randomVideo = // assigns random video as a main video
-          responseArr.data[Math.floor(Math.random() * responseArr.data.length)];
+    //added this condition because of bug during force reload
+    if (this.props.match.params.id !== "1af0jruup5g") {
+      axios({
+        method: "get",
+        url: `http://localhost:5000/api/videos`,
+        headers: { "Access-Control-Allow-Origin": "*" }
+      }).then(responseArr => {
+        const video = responseArr.data.find(video => {
+          return video.id === this.props.match.params.id;
+        });
+        //takes the first video from the array and sorts comments by timestamp
+        video.comments.sort((a, b) => {
+          return b.timestamp - a.timestamp;
+        });
         this.setState({
+          loading: true,
+          currentVideo: video, // sets first video of the array as the main video
           videos: responseArr.data.filter(video => {
-            // excludes main video from array of side videos
-            return video.id !== randomVideo.id;
+            // excludes main video from array of side videos and sets state
+            return video.id !== responseArr.data[0].id;
           })
         });
-        return randomVideo;
-      })
-      .then(randomVideo => {
-        axios
-          .get(
-            //gets main video(random video) details
-            `http://localhost:5000/api/videos/${randomVideo.id}`
-          )
-          .then(response => {
-            response.data.comments.sort((a, b) => {
-              //sorts comment by time of posting
-              return b.timestamp - a.timestamp;
-            });
-            this.setState({
-              currentVideo: response.data, // sets random video as the main video
-              loading: true
-            });
-          });
       });
+    } else {
+      axios({
+        method: "get",
+        url: `http://localhost:5000/api/videos`,
+        headers: { "Access-Control-Allow-Origin": "*" }
+      }).then(responseArr => {
+        const mainVideo = responseArr.data.find(video => {
+          return video.id === "1af0jruup5g";
+        });
+        //takes the first video from the array and sorts comments by timestamp
+        mainVideo.comments.sort((a, b) => {
+          return b.timestamp - a.timestamp;
+        });
+        this.setState({
+          loading: true,
+          currentVideo: mainVideo, // sets first video of the array as the main video
+          videos: responseArr.data.filter(video => {
+            // excludes main video from array of side videos and sets state
+            return video.id !== mainVideo.id;
+          })
+        });
+      });
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -85,13 +98,13 @@ export default class App extends Component {
 
   // function for adding new comments
   addComment = comment => {
-    const randomVideoId = //to make sure adding comments work correctly only on the first loaded video, we're comparing main video with random video stored in state
+    const videoId = //to make sure adding comments work correctly only on the first loaded video, we're comparing main video with random video stored in state
       this.props && this.props.match.params.id
         ? this.props.match.params.id
         : this.state.currentVideo.id;
     axios({
       method: "post", //posts comments to the API
-      url: `http://localhost:5000/api/videos/${randomVideoId}/comments`,
+      url: `http://localhost:5000/api/videos/${videoId}/comments`,
       data: {
         name: comment.name,
         comment: comment.comment
@@ -103,7 +116,7 @@ export default class App extends Component {
       .then(response => {
         return axios.get(
           //gets video with updated comments
-          `http://localhost:5000/api/videos/${randomVideoId}`
+          `http://localhost:5000/api/videos/${videoId}`
         );
       })
       .then(response => {
@@ -119,18 +132,18 @@ export default class App extends Component {
 
   // function that deletes a comment
   deleteComment = comment => {
-    const randomVideoId = //to make sure adding comments work correctly only on the first loaded video, we're comparing main video with random video stored in state
+    const videoId = //to make sure adding comments work correctly only on the first loaded video, we're comparing main video with random video stored in state
       this.props && this.props.match.params.id
         ? this.props.match.params.id
         : this.state.currentVideo.id;
     axios
       .delete(
-        `http://localhost:5000/api/videos/${randomVideoId}/comments/${comment.id}`
+        `http://localhost:5000/api/videos/${videoId}/comments/${comment.id}`
       )
       .then(response => {
         return axios.get(
           //gets video with updated comments
-          `http://localhost:5000/api/videos/${randomVideoId}`
+          `http://localhost:5000/api/videos/${videoId}`
         );
       })
       .then(response => {
@@ -143,45 +156,19 @@ export default class App extends Component {
         });
       });
   };
-
+  // function for "liking" videos
   likeVideo = video => {
-    // axios
-    //   .put(
-    //     `http://localhost:5000/api/videos/${this.props.match.params.id}/likes`
-    //   )
-    //   .then(response => {
-    //     this.setState({
-    //       currentVideo: response.data //updates video with updated likes
-    //     });
-    //   });
     axios({
       method: "put",
-      url: `http://localhost:5000/api/videos/${this.props.match.params.id}/likes`,
+      url: `http://localhost:5000/api/videos/${video.id}/likes`,
       headers: { "Access-Control-Allow-Origin": "*" }
     }).then(response => {
-      this.setState({
-        currentVideo: response.data //updates video with updated likes
+      response.data.comments.sort((a, b) => {
+        //sorts comments by time of posting
+        return b.timestamp - a.timestamp;
       });
-    });
-  };
-
-  uploadVideo = video => {
-    axios({
-      method: "post", //posts comments to the API
-      url: `http://localhost:5000/api/videos/}`,
-      data: {
-        id: video.id,
-        title: video.title,
-        channel: video.channel,
-        desciption: video.description,
-        image: video.image
-      },
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8"
-      }
-    }).then(response => {
       this.setState({
-        videos: response.data //updates video with updated comments
+        currentVideo: response.data //updates video with updated likes and proper comments timestamp
       });
     });
   };

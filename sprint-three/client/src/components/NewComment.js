@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import uuid from "uuid/v1";
 
 export default class NewComment extends Component {
   render() {
@@ -12,7 +11,7 @@ export default class NewComment extends Component {
       event.target.comment.value.length < 2 // checks if comment length is < 2
         ? alert("Please write something meaningful")
         : this.props.addComment(comment); //calls funtion to add comment to the API
-      document.querySelector("#submit-form").reset();
+      document.querySelector("#submit-form").reset(); 
     };
     return (
       <section className="new-comment">

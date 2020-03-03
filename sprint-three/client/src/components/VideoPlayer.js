@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import "../styles/main.css";
 import Play from "../assets/Icons/SVG/Icon-play.svg";
-import Pause from "../assets/Icons/SVG/Icon-pause.svg";
 import FullScreen from "../assets/Icons/SVG/Icon-fullscreen.svg";
 import Volume from "../assets/Icons/SVG/Icon-volume.svg";
 import DefaultVideo from "../assets/Video/BrainStation.mp4";
 
 export default class VideoPlayer extends Component {
-  constructor(props) { //create a ref for the video object
+  constructor(props) {
+    //create a ref for the video object
     super(props);
     this.mainVideo = React.createRef();
-    this.state = { playImg: true };
-  };
+  }
 
   render() {
     return (
@@ -25,20 +24,17 @@ export default class VideoPlayer extends Component {
             height="183"
             poster={this.props.currentVideo.image}
           >
-            <source
-              src={DefaultVideo}
-              type="video/mp4"
-            ></source>
+            <source src={DefaultVideo} type="video/mp4"></source>
           </video>
 
           <div className="video-player__container--controls">
             <button
               onClick={() => {
-                if (this.mainVideo.current.paused){
+                if (this.mainVideo.current.paused) {
                   this.mainVideo.current.play();
                 } else {
                   this.mainVideo.current.pause();
-                }              
+                }
               }}
               className="video-player__container--controls--play"
               id="playpause"

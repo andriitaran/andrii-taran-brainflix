@@ -6,22 +6,20 @@ import axios from "axios";
 
 export default function Upload() {
   const uploadVideo = video => {
+    // had to move this function from APP component as I couldn't find a way to pass it as props to UPLOAD component
     axios({
       method: "post", //posts comments to the API
-      url: `http://localhost:5000/api/videos/}`,
+      url: `http://localhost:5000/api/videos/`,
       data: {
         id: video.id,
         title: video.title,
         channel: video.channel,
-        desciption: video.description,
+        description: video.description,
         image: video.image
       }
+    }).then(response => {
+      console.log("Video was uploaded");
     });
-    //  .then(response => {
-    //    this.setState({
-    //      videos: response.data //updates video with updated comments
-    //    });
-    //  });
   };
   const handleUpload = event => {
     //creates new comment
@@ -30,7 +28,7 @@ export default function Upload() {
       id: uuid(),
       channel: "John Doe",
       title: event.target.title.value,
-      desciption: event.target.description.value,
+      description: event.target.description.value,
       image:
         "https://assets.simpleviewinc.com/simpleview/image/upload/c_limit,h_1200,q_75,w_1200/v1/clients/vancouverbc/Aerial_Sunset_Vancouver_d3_copy_1bb86ed0-1edc-4cda-841d-0b033ca0bb72.jpg"
     };
@@ -75,7 +73,6 @@ export default function Upload() {
             </span>
             <textarea
               name="description"
-              id=""
               className="upload-page-container__upload-section--add-description"
               placeholder="Add a description of your video"
             ></textarea>
